@@ -1,11 +1,10 @@
 """
 @author: Ricardo Antonio Cutz Hernandez | 201503476
-This file represents the client class with all the properties of 
-the object client
+This file represents the driver in the system
 """
 import random 
-import json
-class Client():
+import math
+class Driver():
     """
     Attributes
     ----------
@@ -13,15 +12,15 @@ class Client():
         name of the client
     lastname: str
         lastname of the client
-    client_id: int
+    driver_id: int
         id representing a client
     pos_x: int
-        client's x position
+        driver's x position
     pos_y: int
-        client's y position
+        driver's y position
     """
 
-    def __init__(self, name, lastname, id_client):
+    def __init__(self, name, lastname, id_driver):
         """
         Parameters:
         -----------
@@ -29,21 +28,27 @@ class Client():
             name of the client
         lastname: str
             lastname of the client
-        id_client:
+        id_driver:
             id
         """
-        self.client_id = id_client
+        self.driver_id = id_driver
         self.name = name
         self.lastname = lastname
         self.pos_x = random.randint(0,20)
         self.pos_y = random.randint(0,20)
+        
     
-    def get_id(self):
+    def get_distance(self, x, y):
         """
+        Parameters:
+        -----------
+        x: int
+            x position of the client
+        y: int
+            y position of the client
+        
         Description:
-        ------------
-        returns the client's id
+        -----------
+        returns the distance between the driver and the x, y point given
         """
-        return self.client_id
-    
-    
+        return math.sqrt(math.pow(self.pos_x-x,2)+math.pow(self.pos_y-y,2))

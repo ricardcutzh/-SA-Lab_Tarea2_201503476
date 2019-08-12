@@ -1,7 +1,7 @@
 """
 @author: Ricardo Antonio Cutz Hernandez | 201503476
 This is the main file where the Client Service will
-Handle requests from de clients
+Handle requests from the clients
 """
 from flask import Flask, jsonify, request
 import ClientController
