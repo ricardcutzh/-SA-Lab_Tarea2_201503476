@@ -10,7 +10,7 @@ This service is in charge of managing the clients service requirements
 1. Build Dockerfile inside the Docker directory:
 ```docker
 $ cd ..
-$ cd Docker/
+$ cd Docker_Python/
 $ docker build -t pythonenv .
 ```
 2. Browse to your working directory, in this case:

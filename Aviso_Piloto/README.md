@@ -10,7 +10,7 @@ This service is in charge of notifying the driver about a client in need of a ri
 1. Build Dockerfile inside the Docker directory:
 ```docker
 $ cd ..
-$ cd Docker/
+$ cd Docker_Python/
 $ docker build -t pythonenv .
 ```
 2. Browse to your working directory, in this case:
@@ -68,7 +68,7 @@ All responses are returned in JSON format
     "message": "ok"
 }
 ```
-* Client not Found: code 400
+* Driver not Found: code 400
 ```json
 {
     "message": "error"
