@@ -35,6 +35,17 @@ $ npm install
 $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED          STATUS
 ```
+## Running Service
+This section explains how to run the container as a service in the background
+1. run the following command to expose the service:
+```docker
+$ cd Rastreo/
+$ docker run -d --rm -p 8003:8001 --name nodecont -v $PWD:/home nodeenv:latest  /bin/sh -c "cd home/code/ && node app.js"
+```
+2. check if the container is running
+```docker
+$ docker ps -a
+```
 # Service URLs
 
 ## Add a Driver
