@@ -12,3 +12,7 @@ cd ..
 cd Rastreo/
 docker run -d --network=sa_tarea2 --rm -p 8003:8001 --name trackingservice -v $PWD:/home nodeenv:latest  /bin/sh -c "cd home/code/ && node app.js"
 echo "running Tracking Service"
+cd ..
+cd ESB/
+docker run -d --network=sa_tarea2 --rm  -p 8000:8001 --name esb -v $PWD:/home nodeenv:latest  /bin/sh -c "cd home/code && node app.js"
+echo "running ESB"

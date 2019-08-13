@@ -35,8 +35,8 @@ class Client():
         self.client_id = id_client
         self.name = name
         self.lastname = lastname
-        self.pos_x = random.randint(0,20)
-        self.pos_y = random.randint(0,20)
+        self.pos_x = random.randint(0,100)
+        self.pos_y = random.randint(0,100)
     
     def get_id(self):
         """

@@ -11,6 +11,10 @@ drivers = [
     Driver("D4", "D4", 4),
     Driver("D5", "D5", 5),
     Driver("D6", "D6", 6),
+    Driver("D7", "D7", 7),
+    Driver("D8", "D8", 8),
+    Driver("D9", "D9", 9),
+    Driver("D10", "D10", 10),
 ]
 
 def search_driver(x, y):

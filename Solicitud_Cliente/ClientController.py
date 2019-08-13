@@ -11,7 +11,10 @@ clients = [
     Client("C4","C4",4),
     Client("C5","C5",5),
     Client("C6","C6",6),
-    Client("C7","C7",7)
+    Client("C7","C7",7),
+    Client("C8","C8",8),
+    Client("C9","C9",9),
+    Client("C10","C10",7),
 ]
 
 def get_client(id):

@@ -1,0 +1,22 @@
+{
+  "name": "esb",
+  "version": "1.0.0",
+  "description": "services manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ESB",
+    "Microservice",
+    "Services"
+  ],
+  "author": "Ricardo Cutz Hernandez",
+  "license": "ISC",
+  "dependencies": {
+    "expess": "0.0.1-security",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "request": "^2.88.0"
+  }
+}

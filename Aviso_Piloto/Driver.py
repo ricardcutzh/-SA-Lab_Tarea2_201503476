@@ -34,8 +34,8 @@ class Driver():
         self.driver_id = id_driver
         self.name = name
         self.lastname = lastname
-        self.pos_x = random.randint(0,20)
-        self.pos_y = random.randint(0,20)
+        self.pos_x = random.randint(40,200)
+        self.pos_y = random.randint(40,200)
         
     
     def get_distance(self, x, y):
