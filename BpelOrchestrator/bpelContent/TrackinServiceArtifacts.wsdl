@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<definitions name="TrackinService"
+        targetNamespace="TrackingService"
+        xmlns:tns="TrackingService"
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        >
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of services participating in this BPEL process 
+     The default output of the BPEL designer uses strings as input and 
+     output to the BPEL Process. But you can define or import any XML 
+     Schema type and us them as part of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>  
+        <schema attributeFormDefault="unqualified" 
+                elementFormDefault="qualified" 
+                targetNamespace="TrackingService" 
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                >
+                
+            <element name="TrackinServiceRequest">
+                <complexType>
+                    <sequence>
+                    	<element name="ClientID" type="int" />
+                    	<element name="DriverID" type="int"></element>
+                    </sequence>
+                </complexType>
+            </element>
+                  
+            <element name="TrackinServiceResponse">
+                <complexType>
+                    <sequence>
+                    	<element name="idClient" type="int" />
+                    	<element name="idDriver" type="int"></element>
+                    	<element name="Distance" type="int"></element>
+                    </sequence>
+                </complexType>
+            </element>
+            
+        </schema>
+    </types>
+  
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="TrackinServiceRequestMessage">
+        <part name="payload" element="tns:TrackinServiceRequest"/>
+    </message>
+    
+    <message name="TrackinServiceResponseMessage">
+        <part name="payload" element="tns:TrackinServiceResponse"/>
+    </message>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- portType implemented by the TrackinService BPEL process -->
+    <portType name="TrackinService">
+        <operation name="initiate">
+            <input message="tns:TrackinServiceRequestMessage"/>
+        </operation>
+    </portType>
+
+    <!-- portType implemented by the requester of TrackinService BPEL process 
+         for asynchronous callback purposes
+         -->
+    <portType name="TrackinServiceCallback">
+        <operation name="onResult">
+            <input message="tns:TrackinServiceResponseMessage"/>
+        </operation>
+    </portType>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+         the TrackinService partnerLinkType binds the provider and
+         requester portType into an asynchronous conversation.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="TrackinService">
+        <plnk:role name="TrackinServiceProvider" portType="tns:TrackinService"/>
+        <plnk:role name="TrackinServiceRequester" portType="tns:TrackinServiceCallback"/>
+    </plnk:partnerLinkType>   
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="TrackinServiceBinding" type="tns:TrackinService">
+        <soap:binding style="document"
+    		transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="initiate">
+            <soap:operation
+    			soapAction="TrackingService/initiate"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+        </operation>
+    </binding>
+
+    <binding name="TrackinServiceCallbackBinding" type="tns:TrackinServiceCallback">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="onResult">
+            <soap:operation
+    			soapAction="TrackingService/onResult"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+        </operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="TrackinServiceService">
+        <port name="TrackinServicePort" binding="tns:TrackinServiceBinding">
+    		<soap:address location="http://localhost:8080/ode/processes/TrackinService"/>
+        </port>
+    </service>
+
+    <service name="TrackinServiceServiceCallback">
+        <port name="TrackinServicePortCallbackPort" binding="tns:TrackinServiceCallbackBinding">
+    		<soap:address location="http://localhost:8080/ode/processes/TrackinServiceCallback"/>
+        </port>
+    </service>
+</definitions>
